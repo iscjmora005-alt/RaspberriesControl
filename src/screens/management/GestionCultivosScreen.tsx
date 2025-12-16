@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.textSecondary,
     opacity: 0.7,
   },
-  // Lista
+ 
   card: {
     flexDirection: "row",
     alignItems: "center",
