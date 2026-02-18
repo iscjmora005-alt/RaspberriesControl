@@ -1,11 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-
-// === PASO 1: IMPORTAMOS EL TIPO UserRole ===
-// (Usamos ../types, que es la ruta correcta desde esta carpeta)
-import { UserRole,Usuario } from "../../types"; // <-- Esta es la CORRECTA
-
-// Importación de pantallas
+import { UserRole,Usuario } from "../../types"; 
 import LoginScreen from "../screens/auth/LoginScreen";
 import HomeScreen from "../screens/home/HomeScreen";
 import RegistrarCosechaScreen from "../screens/report/RegistrarCosechaScreen";
@@ -16,10 +11,7 @@ import CalendarioScreen from "../screens/calendar/CalendarioScreen";
 import ProfileScreen from "../screens/profile/ProfileScreen";
 import MantenimientoScreen from "../screens/management/MantenimientoScreen";
 
-/**
- * Definición de los tipos para los parámetros de navegación
- * Esto ayuda a TypeScript a entender qué parámetros espera cada pantalla
- */
+
 export type RootStackParamList = {
   Login: undefined;
   Home: { user: Usuario };
@@ -30,36 +22,9 @@ export type RootStackParamList = {
   Calendario: undefined;
   Mantenimiento: undefined;
   Profile: { user: Usuario };
-  
-  // --- El resto de tipos de "Sistema Escolar" ---
-  AlumnoList: undefined;
-  AlumnoDetails: {
-    nombre: string;
-    id?: number;
-  };
-  ProfesorList: undefined;
-  ProfesorDetails: {
-    nombre: string;
-    id?: number;
-  };
-  MateriaList: undefined;
-  MateriaDetails: {
-    nombre: string;
-    id?: number;
-  };
-  GrupoList: undefined;
-  GrupoDetails: {
-    nombre: string;
-    id?: number;
-  };
-  
 };
 
-/**
- * Creamos el Stack Navigator con tipado
- */
 const Stack = createStackNavigator<RootStackParamList>();
-
 /**
  * Componente principal de navegación
  * Gestiona todas las rutas de la aplicación
@@ -69,7 +34,6 @@ const StackNavigator: React.FC = () => {
     <Stack.Navigator
       initialRouteName="Login"
       screenOptions={{
-        // Tus estilos de header (los dejé como estaban)
         headerStyle: {
           backgroundColor: "#6200ea", 
         },
@@ -94,7 +58,7 @@ const StackNavigator: React.FC = () => {
     name="RegistrarCosecha"
     component={RegistrarCosechaScreen}
     options={{
-      headerShown: false, // Usamos nuestra propia cabecera
+      headerShown: false,
     }}
   />
   {/* Pantalla de Rendimiento */}
@@ -102,7 +66,7 @@ const StackNavigator: React.FC = () => {
     name="Rendimiento"
     component={RendimientoScreen}
     options={{
-      headerShown: false, // Usamos nuestra propia cabecera
+      headerShown: false, 
     }}
   />
       {/* Pantalla Principal */}
@@ -110,19 +74,17 @@ const StackNavigator: React.FC = () => {
         name="Home"
         component={HomeScreen}
         options={{
-          // Cambié este título para que coincida con tu app
           title: "Raspberries Control", 
           headerLeft: () => null, // Evitamos el botón de regreso
         }}
       />
       
-      {/* (Aquí irían tus otras pantallas comentadas) */}
       {/* Pantalla de Gestión de Cultivos */}
   <Stack.Screen
     name="GestionCultivos"
     component={GestionCultivosScreen}
     options={{
-      headerShown: false, // Usamos nuestra propia cabecera
+      headerShown: false,
     }}
   />
   {/* Pantalla de Inventario */}
@@ -130,7 +92,7 @@ const StackNavigator: React.FC = () => {
     name="Inventario"
     component={InventarioScreen}
     options={{
-      headerShown: false, // Usamos nuestra propia cabecera
+      headerShown: false, 
     }}
   />
   <Stack.Screen

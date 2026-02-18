@@ -145,7 +145,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
               placeholderTextColor={COLORS.textSecondary}
               value={formData.password}
               onChangeText={(text) => updateFormData("password", text)}
-              secureTextEntry
+              secureTextEntry={false}
               autoCapitalize="none"
               autoCorrect={false}
               editable={!isLoading}

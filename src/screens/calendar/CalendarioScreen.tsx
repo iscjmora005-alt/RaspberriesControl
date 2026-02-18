@@ -19,8 +19,6 @@ import { db } from "../../firebaseConfig";
 import { collection, addDoc, getDocs, query, orderBy, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import NetInfo from '@react-native-community/netinfo';
 import { guardarEventosLocal, obtenerEventosLocales } from "../../services/OfflineService";
-
-// --- IMPORTANTE: La librería del calendario ---
 import { Calendar, LocaleConfig } from "react-native-calendars";
 
 // Configuración de idioma español para el calendario
@@ -68,8 +66,6 @@ const CalendarioScreen: React.FC<Props> = ({ navigation }) => {
         } as Evento));
 
         setEventos(eventosData);
-
-        // ¡NUEVO! Guardamos la copia en el celular para el futuro
         await guardarEventosLocal(eventosData);
 
       } else {
@@ -105,10 +101,10 @@ const CalendarioScreen: React.FC<Props> = ({ navigation }) => {
     try {
       await addDoc(collection(db, "eventos"), {
         titulo: nuevoTitulo,
-        fecha: selectedDate, // Usamos la fecha seleccionada en el calendario
+        fecha: selectedDate, 
         descripcion: nuevaDesc,
         tipo: "Otro",
-        estado: "pendiente" // Por defecto nace pendiente
+        estado: "pendiente"
       });
       setModalVisible(false);
       setNuevoTitulo("");
@@ -133,7 +129,7 @@ const CalendarioScreen: React.FC<Props> = ({ navigation }) => {
     try {
       const eventoRef = doc(db, "eventos", evento.id);
       await updateDoc(eventoRef, { estado: nuevoEstado });
-      fetchEventos(); // Recargar visualmente
+      fetchEventos();
     } catch (error) {
       console.error("Error actualizando estado", error);
     }
@@ -167,7 +163,6 @@ const CalendarioScreen: React.FC<Props> = ({ navigation }) => {
     return acc;
   }, {} as any);
 
-  // Marcar también el día seleccionado
   markedDates[selectedDate] = {
     ...markedDates[selectedDate],
     selected: true,
