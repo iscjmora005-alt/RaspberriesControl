@@ -19,7 +19,7 @@ import { RootStackParamList } from "../../navigation/StackNavigator";
 import { COLORS, FONT_SIZES, UserRole } from "../../../types";
 
 // Firebase
-import { db } from "../../firebaseConfig";
+import { db } from "../../firebase/firebaseConfig";
 import { collection, query, orderBy, limit, getDocs, addDoc, doc, updateDoc, increment } from "firebase/firestore";
 
 // --- OFFLINE IMPORTS ---

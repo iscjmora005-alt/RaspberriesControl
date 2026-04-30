@@ -1,4 +1,4 @@
-import { db } from "../firebaseConfig";
+import { db } from "../firebase/firebaseConfig";
 import { collection, addDoc, getDocs, query, orderBy, doc, updateDoc, increment } from "firebase/firestore";
 import { guardarReporteLocal, obtenerCatalogosLocales, guardarCatalogosLocal } from "./OfflineService";
 import NetInfo from '@react-native-community/netinfo';

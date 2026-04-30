@@ -4,6 +4,7 @@ import { Picker } from "@react-native-picker/picker";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useRegistrarCosecha } from "../../hooks/useRegistrarCosecha"; 
 import { COLORS, FONT_SIZES } from "../../../types";
+import { useNetInfo } from '@react-native-community/netinfo';
 
 // Componente visual simple
 const FormInput = ({ label, value, onChangeText, placeholder, keyboardType = "numeric" }: any) => (
@@ -14,19 +15,26 @@ const FormInput = ({ label, value, onChangeText, placeholder, keyboardType = "nu
 );
 
 const RegistrarCosechaScreen = ({ navigation }: any) => {
-  // ¡SOLO 1 LÍNEA DE LÓGICA!
+  // Lógica importada desde tu Hook (MVVM)
   const { formData, updateForm, tipoBasquete, setTipoBasquete, imageUri, pickImage, catalogos, loadingCatalogos, isLoading, guardar } = useRegistrarCosecha();
+  
+  // Hook de conexión a internet
+  const { isConnected } = useNetInfo();
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.headerBar}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.iconButton}>
-             <MaterialIcons name="arrow-back-ios" size={24} color="white" />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Registrar Cosecha</Text>
-      </View>
-
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+        
+        {/* --- TAREA 1: BANNER VISUAL DE RED --- */}
+        <View style={[
+          styles.banner, 
+          { backgroundColor: isConnected ? '#4ade80' : '#ef4444' }
+        ]}>
+          <Text style={styles.bannerText}>
+            {isConnected ? '🟢 Conectado a Internet' : '🔴 Modo Offline: Sin conexión'}
+          </Text>
+        </View>
+
         <ScrollView style={styles.contentContainer}>
           
           <View style={styles.formSection}>
@@ -35,7 +43,7 @@ const RegistrarCosechaScreen = ({ navigation }: any) => {
                 <View style={styles.pickerContainer}>
                     <Picker selectedValue={formData.parcela} onValueChange={(v) => updateForm("parcela", v)}>
                         <Picker.Item label="-- Seleccione --" value="" />
-                        {catalogos.parcelas.map(p => <Picker.Item key={p.id} label={p.nombre} value={p.id} />)}
+                        {catalogos.parcelas.map((p: any) => <Picker.Item key={p.id} label={p.nombre} value={p.id} />)}
                     </Picker>
                 </View>
             )}
@@ -47,7 +55,7 @@ const RegistrarCosechaScreen = ({ navigation }: any) => {
                 <View style={styles.pickerContainer}>
                     <Picker selectedValue={formData.material} onValueChange={(v) => updateForm("material", v)}>
                         <Picker.Item label="-- Seleccione --" value="" />
-                        {catalogos.materiales.map(m => <Picker.Item key={m.id} label={m.nombre} value={m.id} />)}
+                        {catalogos.materiales.map((m: any) => <Picker.Item key={m.id} label={m.nombre} value={m.id} />)}
                     </Picker>
                 </View>
             )}
@@ -79,8 +87,20 @@ const RegistrarCosechaScreen = ({ navigation }: any) => {
             )}
           </View>
 
-          <TouchableOpacity style={[styles.saveButton, isLoading && styles.saveButtonDisabled]} onPress={() => guardar(() => navigation.goBack())} disabled={isLoading}>
-            {isLoading ? <ActivityIndicator color="white" /> : <Text style={styles.saveButtonText}>Guardar Reporte</Text>}
+          {}
+          <TouchableOpacity 
+            style={[
+              styles.saveButton, 
+              (isLoading || !isConnected) && styles.saveButtonDisabled 
+            ]} 
+            onPress={() => guardar(() => navigation.goBack())} 
+            disabled={isLoading || !isConnected}
+          >
+            {isLoading ? (
+              <ActivityIndicator color="white" /> // Spinner al subir imagen/guardar
+            ) : (
+              <Text style={styles.saveButtonText}>Guardar Reporte</Text>
+            )}
           </TouchableOpacity>
 
         </ScrollView>
@@ -91,6 +111,12 @@ const RegistrarCosechaScreen = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#F4F6F8" },
+  
+  /* --- Estilos nuevos para el Banner --- */
+  banner: { padding: 10, alignItems: 'center', justifyContent: 'center' },
+  bannerText: { color: 'white', fontWeight: 'bold' },
+  /* ------------------------------------- */
+
   headerBar: { flexDirection: "row", alignItems: "center", backgroundColor: "#E91E63", padding: 15 },
   headerTitle: { fontSize: FONT_SIZES.large, fontWeight: "bold", color: COLORS.surface, textAlign: "center", flex: 1, marginRight: 40 },
   iconButton: { padding: 5 },

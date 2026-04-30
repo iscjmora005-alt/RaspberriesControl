@@ -17,6 +17,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Inicializar Cloud Firestore y exportarlo para usarlo en la app
+export { app };
 export const db = getFirestore(app);
 
 console.log("🔥 Firebase Firestore inicializado");

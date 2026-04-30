@@ -15,7 +15,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/StackNavigator";
 import { COLORS, FONT_SIZES, Evento } from "../../../types";
 import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
-import { db } from "../../firebaseConfig";
+import { db } from "../../firebase/firebaseConfig";
 import { collection, addDoc, getDocs, query, orderBy, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import NetInfo from '@react-native-community/netinfo';
 import { guardarEventosLocal, obtenerEventosLocales } from "../../services/OfflineService";

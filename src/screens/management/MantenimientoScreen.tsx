@@ -19,7 +19,7 @@ import { RootStackParamList } from "../../navigation/StackNavigator";
 import { COLORS, FONT_SIZES, Usuario, UserRole } from "../../../types";
 import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 
-import { db } from "../../firebaseConfig";
+import { db } from "../../firebase/firebaseConfig";
 import { collection, addDoc, getDocs, query, orderBy, deleteDoc, doc } from "firebase/firestore";
 
 type MantenimientoNavProp = StackNavigationProp<RootStackParamList, "Mantenimiento">;

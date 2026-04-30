@@ -18,7 +18,7 @@ import { RootStackParamList } from "../../navigation/StackNavigator";
 import { COLORS, FONT_SIZES, Material } from "../../../types"; 
 import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 
-import { db } from "../../firebaseConfig";
+import { db } from "../../firebase/firebaseConfig";
 import {
   collection,
   getDocs,

@@ -20,7 +20,7 @@ import { COLORS, FONT_SIZES, ReporteGuardado } from "../../../types";
 import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 
 // Firebase
-import { db } from "../../firebaseConfig";
+import { db } from "../../firebase/firebaseConfig";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 
 // Gráficas

@@ -35,13 +35,37 @@ export const useRegistrarCosecha = () => {
     setFormData(prev => ({ ...prev, [key]: value }));
   };
 
+  // --- AQUÍ ESTÁ LA MAGIA DE LA CÁMARA ACTUALIZADA ---
   const pickImage = async () => {
-    const result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true, quality: 0.5,
-    });
-    if (!result.canceled) setImageUri(result.assets[0].uri);
+    try {
+      // 1. Pedimos permiso al celular primero
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      
+      if (status !== 'granted') {
+        Alert.alert(
+          "Permiso denegado 🚫", 
+          "AgroLink necesita acceso a la cámara para registrar las evidencias de la cosecha."
+        );
+        return; // Cancelamos si dice que no
+      }
+
+      // 2. Abrimos la cámara con el formato nuevo para quitar el WARN amarillo
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ['images'], 
+        allowsEditing: true, 
+        quality: 0.5,
+      });
+
+      // 3. Si tomó la foto, la guardamos
+      if (!result.canceled) {
+        setImageUri(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.error("Error al abrir la cámara: ", error);
+      Alert.alert("Error", "No se pudo iniciar la cámara.");
+    }
   };
+  // ----------------------------------------------------
 
   const guardar = async (onSuccess: () => void) => {
     if (!formData.parcela || !formData.material || !tipoBasquete) {

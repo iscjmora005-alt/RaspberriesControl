@@ -13,12 +13,11 @@ import {
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/StackNavigator";
-import { LoginFormData, COLORS, FONT_SIZES, UserRole,Usuario } from "../../../types/index";
+import { LoginFormData, COLORS, FONT_SIZES, UserRole } from "../../types/index";
 import { Feather } from "@expo/vector-icons";
 
-// --- IMPORTACIONES DE FIREBASE ---
-import { db } from "../../firebaseConfig";
-import { collection, query, where, getDocs } from "firebase/firestore";
+
+import { useAuth } from "../../hooks/useAuth";
 
 const loginImage = require("../../../assets/iconlogin.jpg");
 
@@ -28,13 +27,15 @@ interface LoginScreenProps {
   navigation: LoginScreenNavigationProp;
 }
 
-const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
+export default function LoginScreen({ navigation }: LoginScreenProps) {
   const [formData, setFormData] = useState<LoginFormData>({
     username: "",
     password: "",
   });
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  
+ 
+ 
+ const { loginUser, isLoading,  } = useAuth();
   const updateFormData = (field: keyof LoginFormData, value: string): void => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
@@ -54,48 +55,12 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const handleLogin = async (): Promise<void> => {
     if (!validateForm()) return;
 
-    setIsLoading(true);
+  
+    const user = await loginUser(formData.username.trim(), formData.password);
 
-    try {
-      // 1. Buscamos el usuario en la base de datos
-      const q = query(
-        collection(db, "usuarios"), 
-        where("username", "==", formData.username.trim())
-      );
-
-      const querySnapshot = await getDocs(q);
-
-      if (querySnapshot.empty) {
-        Alert.alert("Error", "Usuario no encontrado.");
-        setIsLoading(false);
-        return;
-      }
-
-      // 2. Obtenemos los datos del usuario encontrado
-      const userDoc = querySnapshot.docs[0].data();
+    if (user) {
       
-      // 3. Verificamos la contraseña (comparación directa)
-      if (userDoc.password === formData.password) {
-        
-        // 4. ¡LOGIN EXITOSO!
-        // Extraemos el rol real de la base de datos
-       const usuarioCompleto: Usuario = {
-          id: querySnapshot.docs[0].id,
-          ...userDoc
-        } as Usuario; 
-        
-        // Navegamos pasando el rol real
-       navigation.replace("Home", { user: usuarioCompleto });
-
-      } else {
-        Alert.alert("Error", "Contraseña incorrecta.");
-      }
-
-    } catch (error) {
-      console.error("Error en login:", error);
-      Alert.alert("Error", "Ocurrió un problema al conectar con el servidor.");
-    } finally {
-      setIsLoading(false);
+      navigation.replace("Home", { user: user as any });
     }
   };
 
@@ -145,7 +110,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
               placeholderTextColor={COLORS.textSecondary}
               value={formData.password}
               onChangeText={(text) => updateFormData("password", text)}
-              secureTextEntry={false}
+              secureTextEntry={true} 
               autoCapitalize="none"
               autoCorrect={false}
               editable={!isLoading}
@@ -174,7 +139,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       </View>
     </KeyboardAvoidingView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.background },
@@ -253,5 +218,3 @@ const styles = StyleSheet.create({
   link: { color: COLORS.text, textAlign: "center", marginTop: 16, textDecorationLine: "underline" },
   linksContainer: { marginTop: 30, alignItems: "center" },
 });
-
-export default LoginScreen;
