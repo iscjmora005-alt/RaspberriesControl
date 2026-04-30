@@ -11,6 +11,8 @@ import CalendarioScreen from "../screens/calendar/CalendarioScreen";
 import ProfileScreen from "../screens/profile/ProfileScreen";
 import MantenimientoScreen from "../screens/management/MantenimientoScreen";
 
+// 1. Importamos la nueva pantalla
+import PruebaSQLiteScreen from "../screens/report/PruebaSQLiteScreen";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -22,9 +24,12 @@ export type RootStackParamList = {
   Calendario: undefined;
   Mantenimiento: undefined;
   Profile: { user: Usuario };
+  // 2. Agregamos la ruta a los tipos
+  PruebaSQLite: undefined; 
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
+
 /**
  * Componente principal de navegación
  * Gestiona todas las rutas de la aplicación
@@ -32,7 +37,8 @@ const Stack = createStackNavigator<RootStackParamList>();
 const StackNavigator: React.FC = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Login"
+      // 3. ¡LA MAGIA! Cambiamos "Login" por "PruebaSQLite" temporalmente
+      initialRouteName="PruebaSQLite"
       screenOptions={{
         headerStyle: {
           backgroundColor: "#6200ea", 
@@ -44,6 +50,15 @@ const StackNavigator: React.FC = () => {
         },
       }}
     >
+      {/* 4. Registramos la pantalla de SQLite */}
+      <Stack.Screen
+        name="PruebaSQLite"
+        component={PruebaSQLiteScreen}
+        options={{
+          title: "Prueba Offline",
+        }}
+      />
+
       {/* Pantalla de Login */}
       <Stack.Screen
         name="Login"
@@ -54,21 +69,21 @@ const StackNavigator: React.FC = () => {
         }}
       />
       {/* Pantalla de Registrar Cosecha */}
-  <Stack.Screen
-    name="RegistrarCosecha"
-    component={RegistrarCosechaScreen}
-    options={{
-      headerShown: false,
-    }}
-  />
-  {/* Pantalla de Rendimiento */}
-  <Stack.Screen
-    name="Rendimiento"
-    component={RendimientoScreen}
-    options={{
-      headerShown: false, 
-    }}
-  />
+      <Stack.Screen
+        name="RegistrarCosecha"
+        component={RegistrarCosechaScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      {/* Pantalla de Rendimiento */}
+      <Stack.Screen
+        name="Rendimiento"
+        component={RendimientoScreen}
+        options={{
+          headerShown: false, 
+        }}
+      />
       {/* Pantalla Principal */}
       <Stack.Screen
         name="Home"
@@ -80,42 +95,39 @@ const StackNavigator: React.FC = () => {
       />
       
       {/* Pantalla de Gestión de Cultivos */}
-  <Stack.Screen
-    name="GestionCultivos"
-    component={GestionCultivosScreen}
-    options={{
-      headerShown: false,
-    }}
-  />
-  {/* Pantalla de Inventario */}
-  <Stack.Screen
-    name="Inventario"
-    component={InventarioScreen}
-    options={{
-      headerShown: false, 
-    }}
-  />
-  <Stack.Screen
-   name="Calendario" 
-   component={CalendarioScreen} 
-   options={{
-     headerShown: false }} />
-     
-   <Stack.Screen 
-      name="Profile" 
-      component={ProfileScreen} 
-      options={{ headerShown: false }} 
-    />
-    <Stack.Screen
-     name="Mantenimiento"
-     component={MantenimientoScreen}
-      options={{ headerShown: false }} 
+      <Stack.Screen
+        name="GestionCultivos"
+        component={GestionCultivosScreen}
+        options={{
+          headerShown: false,
+        }}
       />
+      {/* Pantalla de Inventario */}
+      <Stack.Screen
+        name="Inventario"
+        component={InventarioScreen}
+        options={{
+          headerShown: false, 
+        }}
+      />
+      <Stack.Screen
+       name="Calendario" 
+       component={CalendarioScreen} 
+       options={{
+         headerShown: false }} />
+         
+       <Stack.Screen 
+          name="Profile" 
+          component={ProfileScreen} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen
+         name="Mantenimiento"
+         component={MantenimientoScreen}
+          options={{ headerShown: false }} 
+          />
    </Stack.Navigator>
-   
-    
   );
-  
- 
 };
+
 export default StackNavigator;

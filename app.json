@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Raspberries Control", 
-    "slug": "mi-app", 
+    "name": "Raspberries Control",
+    "slug": "mi-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -31,6 +31,9 @@
       "eas": {
         "projectId": "9b7d40b4-88a6-44da-8c77-7c4fa069be05"
       }
-    }
+    },
+    "plugins": [
+      "expo-sqlite"
+    ]
   }
 }
