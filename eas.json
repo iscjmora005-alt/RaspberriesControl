@@ -14,9 +14,12 @@
         "buildType": "apk"
       }
     },
-    
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://api.agrolink.com",
+        "EXPO_PUBLIC_ENTORNO": "produccion"
+      }
     }
   },
   "submit": {

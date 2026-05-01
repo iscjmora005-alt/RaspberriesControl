@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Raspberries Control", 
-    "slug": "mi-app", 
+    "name": "Raspberries Control",
+    "slug": "mi-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,7 +13,8 @@
       "backgroundColor": "#E91E63"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jaimea2552.raspberriescontrol"
     },
     "android": {
       "adaptiveIcon": {
