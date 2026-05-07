@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
+    "firebase-tools": "^15.16.0",
     "typescript": "~5.9.2"
   },
   "private": true
