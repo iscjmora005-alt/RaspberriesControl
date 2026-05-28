@@ -1,0 +1,340 @@
+[
+  {
+    "id": "3s44aVeRNXlVqJlZMPys",
+    "parcelaNombre": "Rosa",
+    "fotoUrl": "https://res.cloudinary.com/dfh6eyvxt/image/upload/v1764775864/qazcybvcxmpxmejehdsl.jpg",
+    "materialNombre": "Caja de armar Fresh Kampo",
+    "exportacion6oz": 500,
+    "materialId": "kVcxywB5DsfG55rhoEDv",
+    "procesoCharola": 20,
+    "exportacion12oz": 0,
+    "parcelaId": "MRI1y4GgWd3QadwzwQAe",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1764775865,
+      "nanoseconds": 312000000
+    },
+    "materialSobrante": "500"
+  },
+  {
+    "id": "DpZYGltjpq40JThCKWJ4",
+    "parcelaId": "WQm9SxLfKQDvusFlZ4cG",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1765348949,
+      "nanoseconds": 989000000
+    },
+    "materialSobrante": "",
+    "materialId": "i8YiBdjDwhkFMk75NFQA",
+    "procesoCharola": 10,
+    "exportacion12oz": 0,
+    "materialNombre": "Caja Basquetes 6oz HEB",
+    "exportacion6oz": 100,
+    "parcelaNombre": "Filemon",
+    "fotoUrl": "https://res.cloudinary.com/dfh6eyvxt/image/upload/v1765348949/rc908jfdemb0mldrdyoy.jpg"
+  },
+  {
+    "id": "G82BEfHk3tcxY1VVHAds",
+    "exportacion6oz": 10,
+    "materialNombre": "Basquete Fresh Kampo",
+    "fotoUrl": "https://res.cloudinary.com/dfh6eyvxt/image/upload/v1764368126/j2xj1ozpruljzryy2pqu.jpg",
+    "parcelaNombre": "Lobos 1",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1764368124,
+      "nanoseconds": 394000000
+    },
+    "materialSobrante": "Evidencia ",
+    "parcelaId": "JxAz0COnkBpA5KqCnLOR",
+    "procesoCharola": 20,
+    "exportacion12oz": 0,
+    "materialId": "PbFcmWOkkgDB4TSt9zAH"
+  },
+  {
+    "id": "Got8JoSLQzCYQztyCQH9",
+    "materialPacas": 3,
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1763051281,
+      "nanoseconds": 17000000
+    },
+    "materialSobrante": "Cajas de basquetes",
+    "exportacion6oz": 0,
+    "materialCajas": 125,
+    "procesoCharola": 50,
+    "exportacion12oz": 20
+  },
+  {
+    "id": "Hr9w7XZPAEBV6FjA0oP9",
+    "exportacion6oz": 2,
+    "materialNombre": "Caja Basquetes 6oz HEB",
+    "fotoUrl": "",
+    "parcelaNombre": "Filemon",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1766087281,
+      "nanoseconds": 56000000
+    },
+    "materialSobrante": "",
+    "parcelaId": "WQm9SxLfKQDvusFlZ4cG",
+    "exportacion12oz": 0,
+    "procesoCharola": 0,
+    "materialId": "i8YiBdjDwhkFMk75NFQA"
+  },
+  {
+    "id": "JDzJBGjJa5blqN9zwvQ0",
+    "procesoCharola": 50,
+    "fotoUrl": "",
+    "exportacion12oz": 0,
+    "materialId": "PbFcmWOkkgDB4TSt9zAH",
+    "exportacion6oz": 100,
+    "materialSobrante": "",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1774460138,
+      "nanoseconds": 586000000
+    },
+    "parcelaId": "WQm9SxLfKQDvusFlZ4cG"
+  },
+  {
+    "id": "LO6drygzP5g0uWZjtDIl",
+    "parcelaNombre": "La Aguacatera",
+    "fotoUrl": "",
+    "materialNombre": "Basquete Fresh Kampo",
+    "exportacion6oz": 20,
+    "materialId": "PbFcmWOkkgDB4TSt9zAH",
+    "exportacion12oz": 0,
+    "procesoCharola": 50,
+    "parcelaId": "zgvS99nWgpIBR0TNRTVy",
+    "materialSobrante": "Prueba 2",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1767811218,
+      "nanoseconds": 414000000
+    }
+  },
+  {
+    "id": "MS3YYxjU1iSVRxIvhRP8",
+    "materialNombre": "Caja Basquetes 6oz HEB",
+    "exportacion6oz": 8,
+    "parcelaNombre": "Filemon",
+    "fotoUrl": "",
+    "parcelaId": "WQm9SxLfKQDvusFlZ4cG",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1765470771,
+      "nanoseconds": 732000000
+    },
+    "materialSobrante": "",
+    "materialId": "i8YiBdjDwhkFMk75NFQA",
+    "procesoCharola": 44,
+    "exportacion12oz": 0
+  },
+  {
+    "id": "Mk6GeYXhgCullmEPl7id",
+    "materialNombre": "Caja de armar Fresh Kampo",
+    "exportacion6oz": 1,
+    "parcelaNombre": "Rosa",
+    "fotoUrl": "",
+    "parcelaId": "MRI1y4GgWd3QadwzwQAe",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1765471937,
+      "nanoseconds": 948000000
+    },
+    "materialSobrante": "",
+    "materialId": "kVcxywB5DsfG55rhoEDv",
+    "procesoCharola": 0,
+    "exportacion12oz": 0
+  },
+  {
+    "id": "NxlHxoskTZ1O9FmAIPMY",
+    "exportacion12oz": 100,
+    "procesoCharola": 10,
+    "materialId": "PbFcmWOkkgDB4TSt9zAH",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1765382951,
+      "nanoseconds": 692000000
+    },
+    "materialSobrante": "Pruebas",
+    "parcelaId": "WQm9SxLfKQDvusFlZ4cG",
+    "fotoUrl": "https://res.cloudinary.com/dfh6eyvxt/image/upload/v1765382951/o1tlcpoh4jhaxnbv4p33.jpg",
+    "parcelaNombre": "Filemon",
+    "exportacion6oz": 0,
+    "materialNombre": "Basquete Fresh Kampo"
+  },
+  {
+    "id": "S9e6IN3B41uBIjpg4FH2",
+    "exportacion6oz": 100,
+    "materialNombre": "Basquete Fresh Kampo",
+    "parcelaNombre": "La Aguacatera",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1763613064,
+      "nanoseconds": 925000000
+    },
+    "materialSobrante": "No sobro nada",
+    "parcelaId": "zgvS99nWgpIBR0TNRTVy",
+    "exportacion12oz": 0,
+    "procesoCharola": 60,
+    "materialId": "PbFcmWOkkgDB4TSt9zAH"
+  },
+  {
+    "id": "Uf9IA1KTJtOJBHcojuaU",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1763612338,
+      "nanoseconds": 620000000
+    },
+    "materialSobrante": "Ccc",
+    "parcelaId": "zgvS99nWgpIBR0TNRTVy",
+    "procesoCharola": 55,
+    "exportacion12oz": 568,
+    "materialId": "i8YiBdjDwhkFMk75NFQA",
+    "exportacion6oz": 0,
+    "materialNombre": "Caja Basquetes 6oz HEB",
+    "parcelaNombre": "La Aguacatera"
+  },
+  {
+    "id": "WKMTXefa94b4RLPbtKnG",
+    "materialSobrante": "",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1779947623,
+      "nanoseconds": 150000000
+    },
+    "exportacion6oz": 10,
+    "parcelaId": "WQm9SxLfKQDvusFlZ4cG",
+    "exportacion12oz": 0,
+    "procesoCharola": 0,
+    "fotoUrl": "https://res.cloudinary.com/dfh6eyvxt/image/upload/v1779947622/ze98ed0bv4ypj6ev9cbi.jpg",
+    "materialId": "PbFcmWOkkgDB4TSt9zAH"
+  },
+  {
+    "id": "XPoQpXfuEKump0KVniZs",
+    "parcelaId": "WQm9SxLfKQDvusFlZ4cG",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1767806679,
+      "nanoseconds": 339000000
+    },
+    "materialSobrante": "",
+    "materialId": "i8YiBdjDwhkFMk75NFQA",
+    "procesoCharola": 85,
+    "exportacion12oz": 0,
+    "materialNombre": "Caja Basquetes 6oz HEB",
+    "exportacion6oz": 85,
+    "parcelaNombre": "Filemon",
+    "fotoUrl": ""
+  },
+  {
+    "id": "Xtby8fyI9NW6WLa8zuCh",
+    "materialSobrante": "",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1766090004,
+      "nanoseconds": 261000000
+    },
+    "parcelaId": "cEBOgRfxmNIiuQhgKpfV",
+    "procesoCharola": 0,
+    "exportacion12oz": 0,
+    "materialId": "PbFcmWOkkgDB4TSt9zAH",
+    "exportacion6oz": 10,
+    "materialNombre": "Basquete Fresh Kampo",
+    "fotoUrl": "",
+    "parcelaNombre": "Guillermo"
+  },
+  {
+    "id": "ZQXiuA8l9aGteMCsHat3",
+    "procesoCharola": 8,
+    "fotoUrl": "",
+    "exportacion12oz": 0,
+    "materialId": "PbFcmWOkkgDB4TSt9zAH",
+    "materialSobrante": "",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1774460083,
+      "nanoseconds": 675000000
+    },
+    "exportacion6oz": 5,
+    "parcelaId": "WQm9SxLfKQDvusFlZ4cG"
+  },
+  {
+    "id": "ZhDaywahxdpmEoRdGJjv",
+    "materialId": "kVcxywB5DsfG55rhoEDv",
+    "procesoCharola": 10,
+    "fotoUrl": "https://res.cloudinary.com/dfh6eyvxt/image/upload/v1779947514/qlyhy6yqxgsixzmwfsls.jpg",
+    "exportacion12oz": 10,
+    "parcelaId": "cEBOgRfxmNIiuQhgKpfV",
+    "exportacion6oz": 0,
+    "materialSobrante": "",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1779947514,
+      "nanoseconds": 570000000
+    }
+  },
+  {
+    "id": "ekfAPAWPRTinLKY2X1Lh",
+    "exportacion6oz": 0,
+    "materialSobrante": "",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1776235188,
+      "nanoseconds": 529000000
+    },
+    "parcelaId": "WQm9SxLfKQDvusFlZ4cG",
+    "fotoUrl": "https://res.cloudinary.com/dfh6eyvxt/image/upload/v1776235187/mafgyrichlgrdcke11my.jpg",
+    "procesoCharola": 4,
+    "exportacion12oz": 44,
+    "materialId": "kVcxywB5DsfG55rhoEDv"
+  },
+  {
+    "id": "omanmclNAstiieHUaDcC",
+    "exportacion12oz": 0,
+    "fotoUrl": "",
+    "procesoCharola": 0,
+    "materialId": "PbFcmWOkkgDB4TSt9zAH",
+    "exportacion6oz": 1004,
+    "materialSobrante": "",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1779947981,
+      "nanoseconds": 357000000
+    },
+    "parcelaId": "WQm9SxLfKQDvusFlZ4cG"
+  },
+  {
+    "id": "tsIciN8HFvjoZ1LNb18T",
+    "exportacion12oz": 0,
+    "procesoCharola": 10,
+    "materialId": "i8YiBdjDwhkFMk75NFQA",
+    "materialSobrante": "Pruebas ",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1764825249,
+      "nanoseconds": 54000000
+    },
+    "parcelaId": "cEBOgRfxmNIiuQhgKpfV",
+    "fotoUrl": "https://res.cloudinary.com/dfh6eyvxt/image/upload/v1764825248/g16ntymy3ks7xwwczdox.jpg",
+    "parcelaNombre": "Guillermo",
+    "exportacion6oz": 50,
+    "materialNombre": "Caja Basquetes 6oz HEB"
+  },
+  {
+    "id": "yqRcCrUOXegPLH7rHgYX",
+    "materialId": "kVcxywB5DsfG55rhoEDv",
+    "exportacion12oz": 10,
+    "fotoUrl": "https://res.cloudinary.com/dfh6eyvxt/image/upload/v1779947517/lrdmootxbtilk2a46kmr.jpg",
+    "procesoCharola": 10,
+    "parcelaId": "cEBOgRfxmNIiuQhgKpfV",
+    "exportacion6oz": 0,
+    "materialSobrante": "",
+    "fechaCreacion": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1779947518,
+      "nanoseconds": 92000000
+    }
+  }
+]

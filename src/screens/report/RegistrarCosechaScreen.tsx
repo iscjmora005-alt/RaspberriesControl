@@ -91,13 +91,13 @@ const RegistrarCosechaScreen = ({ navigation }: any) => {
           <TouchableOpacity 
             style={[
               styles.saveButton, 
-              (isLoading || !isConnected) && styles.saveButtonDisabled 
+              isLoading && styles.saveButtonDisabled // Ahora solo se pone gris si está cargando
             ]} 
             onPress={() => guardar(() => navigation.goBack())} 
-            disabled={isLoading || !isConnected}
+            disabled={isLoading} // Ahora solo se bloquea físicamente si está cargando
           >
             {isLoading ? (
-              <ActivityIndicator color="white" /> // Spinner al subir imagen/guardar
+              <ActivityIndicator color="white" /> 
             ) : (
               <Text style={styles.saveButtonText}>Guardar Reporte</Text>
             )}
