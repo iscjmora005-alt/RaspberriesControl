@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "distribute:android": "firebase appdistribution:distribute ./tu-app.apk --app 1:1234567890:android:abcdef123456 --groups testers-raspberries"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
@@ -15,6 +16,7 @@
     "@react-native-picker/picker": "2.11.1",
     "@react-navigation/native": "^7.1.17",
     "@react-navigation/stack": "^7.4.8",
+    "@supabase/supabase-js": "^2.106.2",
     "expo": "~54.0.10",
     "expo-image-picker": "~17.0.8",
     "expo-print": "~15.0.7",
