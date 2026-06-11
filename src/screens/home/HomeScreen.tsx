@@ -20,11 +20,12 @@ import { COLORS, FONT_SIZES, UserRole } from "../../../types";
 
 // Firebase
 import { db } from "../../firebase/firebaseConfig";
-import { collection, query, orderBy, limit, getDocs, addDoc, doc, updateDoc, increment } from "firebase/firestore";
+import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 
-// --- OFFLINE IMPORTS ---
+// --- OFFLINE E IMPORTACIONES NUEVAS ---
 import NetInfo from '@react-native-community/netinfo';
-import { obtenerReportesLocales, limpiarReportesLocales } from "../../services/OfflineService";
+import { obtenerReportesPendientes } from "../../services/OfflineService";
+import { sincronizarReportesOffline } from "../../services/CosechaService";
 // -----------------------
 
 type HomeScreenRouteProp = RouteProp<RootStackParamList, "Home">;
@@ -67,10 +68,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         setIsConnected(!!state.isConnected);
       });
 
-      // Checar reportes guardados localmente
-      const checkPending = async () => {
-        const locales = await obtenerReportesLocales();
-        setPendingReports(locales);
+      // Checar reportes guardados en SQLite
+      const checkPending = () => {
+        const locales = obtenerReportesPendientes();
+        setPendingReports(locales as any[]);
       };
       checkPending();
 
@@ -78,67 +79,20 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     }, [])
   );
 
-  // 2. Función para subir imagen a Cloudinary (Reutilizada)
-  const uploadImageToCloudinary = async (uri: string) => {
-    const cloudName = "dfh6eyvxt"; 
-    const uploadPreset = "cosecha_preset";
-    const formData = new FormData();
-    formData.append("file", { uri, type: "image/jpeg", name: "sync_upload.jpg" } as any);
-    formData.append("upload_preset", uploadPreset);
-
-    const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-      method: "POST", body: formData
-    });
-    const data = await response.json();
-    return data.secure_url;
-  };
-
-  // 3. FUNCIÓN DE SINCRONIZACIÓN (LA MAGIA)
+  // 2. FUNCIÓN DE SINCRONIZACIÓN (Súper limpia)
   const handleSync = async () => {
     setIsSyncing(true);
     try {
-      let subidos = 0;
+      // Mandamos a llamar a la función que armamos en CosechaService
+      const resultado = await sincronizarReportesOffline();
 
-      for (const reporte of pendingReports) {
-        // A. Subir foto si existe localmente
-        let finalFotoUrl = "";
-        if (reporte.localImageUri) {
-          try {
-            finalFotoUrl = await uploadImageToCloudinary(reporte.localImageUri);
-          } catch (err) {
-            console.error("Error subiendo foto pendiente", err);
-          }
-        }
-
-        // B. Preparar objeto para Firebase
-        const reporteFirebase = {
-          ...reporte,
-          fotoUrl: finalFotoUrl,
-          fechaCreacion: new Date() // Fecha actual de subida
-        };
-        // Quitamos campos locales basura
-        delete reporteFirebase.localImageUri; 
-
-        // C. Guardar en Firestore
-        await addDoc(collection(db, "reportesCosecha"), reporteFirebase);
-
-        // D. Descontar Inventario (Si aplica)
-        const totalMat = (reporte.exportacion6oz || 0) + (reporte.exportacion12oz || 0);
-        if (totalMat > 0 && reporte.materialId) {
-             const materialRef = doc(db, "materiales", reporte.materialId);
-             await updateDoc(materialRef, { stock: increment(-totalMat) });
-        }
-        subidos++;
+      if (resultado.success) {
+        Alert.alert("Sincronización Completa", resultado.message);
+        setPendingReports([]); // Limpiamos la UI
+        fetchRecents(); // Recargamos la lista de recientes
+      } else {
+        Alert.alert("Aviso", resultado.message);
       }
-
-      // E. Limpiar celular
-      await limpiarReportesLocales();
-      setPendingReports([]);
-      Alert.alert("Sincronización Completa", `Se subieron ${subidos} reportes a la nube.`);
-      
-      // Recargar lista de recientes
-      fetchRecents();
-
     } catch (error) {
       Alert.alert("Error", "Falló la sincronización. Intenta de nuevo.");
       console.error(error);
@@ -175,7 +129,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     }, [])
   );
 
-  // ... (Resto de funciones: handleLogout, handleProfile, handleNavigation, renderIcon IGUAL QUE ANTES) ...
   const handleLogout = (): void => {
     setMenuVisible(false);
     navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "Login" }] }));
@@ -201,7 +154,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     }
   };
   
-  // Lista del menú (IGUAL QUE ANTES)
+  // Lista del menú
   const menuOptions: MenuOption[] = [
     { id: "registrar_cosecha", title: "Registrar Cosecha", subtitle: "Iniciar nuevo reporte diario", icon: "shopping-basket", iconLibrary: "FontAwesome5", color: "#4CAF50", route: "RegistrarCosecha", roles: ["Asociado", "Registrador"] },
     { id: "rendimiento", title: "Rendimiento", subtitle: "Ver gráficas y reportes", icon: "chart-line", iconLibrary: "FontAwesome5", color: "#FF9800", route: "Rendimiento", roles: ["Administrador", "Registrador"] },

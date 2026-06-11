@@ -1,40 +1,86 @@
+import { openDatabaseSync } from 'expo-sqlite';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const STORAGE_KEY = '@reportes_pendientes';
+// ==========================================
+// 1. MANEJO DE REPORTES CON SQLITE (OFFLINE-FIRST)
+// ==========================================
+const db = openDatabaseSync('raspberries.db');
 
-// Guardar localmente
-export const guardarReporteLocal = async (reporte: any) => {
+export const inicializarBaseDeDatos = () => {
   try {
-    const existentes = await obtenerReportesLocales();
-    existentes.push(reporte);
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(existentes));
-    console.log("Guardado offline");
-  } catch (e) {
-    console.error("Error al guardar local", e);
+     //db.execSync(`DROP TABLE IF EXISTS reportesCosecha;`);
+    db.execSync(
+      `CREATE TABLE IF NOT EXISTS reportesCosecha (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        parcelaId TEXT,
+        parcelaNombre TEXT,
+        materialId TEXT,
+        materialNombre TEXT,
+        exportacion6oz INTEGER,
+        exportacion12oz INTEGER,
+        procesoCharola INTEGER,
+        materialSobrante TEXT,
+        fechaCreacion TEXT,
+        localImageUri TEXT,
+        sincronizado INTEGER
+      );`
+    );
+    console.log('✅ Tabla reportesCosecha lista en SQLite.');
+  } catch (error) {
+    console.log('❌ Error creando la tabla:', error);
   }
 };
 
-// Leer pendientes
-export const obtenerReportesLocales = async () => {
+export const guardarReporteLocal = (reporte: any) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const result = db.runSync(
+        `INSERT INTO reportesCosecha 
+        (parcelaId, materialId, exportacion6oz, exportacion12oz, procesoCharola, materialSobrante, fechaCreacion, localImageUri, sincronizado) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)`,
+        [
+          reporte.parcelaId,
+          reporte.parcelaNombre,
+          reporte.materialId,
+          reporte.materialNombre,
+          reporte.exportacion6oz,
+          reporte.exportacion12oz,
+          reporte.procesoCharola,
+          reporte.materialSobrante,
+          reporte.fechaCreacion,
+          reporte.localImageUri || ""
+        ]
+      );
+      console.log('💾 Guardado en SQLite (Offline), ID:', result.lastInsertRowId);
+      resolve(result);
+    } catch (error) {
+      console.log('❌ Error SQLite:', error);
+      reject(error);
+    }
+  });
+};
+
+export const obtenerReportesPendientes = () => {
   try {
-    const jsonValue = await AsyncStorage.getItem(STORAGE_KEY);
-    return jsonValue != null ? JSON.parse(jsonValue) : [];
-  } catch (e) {
+    return db.getAllSync('SELECT * FROM reportesCosecha WHERE sincronizado = 0');
+  } catch (error) {
+    console.log('❌ Error leyendo pendientes:', error);
     return [];
   }
 };
 
-// Limpiar después de subir
-export const limpiarReportesLocales = async () => {
+export const marcarReporteSincronizado = (id: number) => {
   try {
-    await AsyncStorage.removeItem(STORAGE_KEY);
-  } catch (e) {
-    console.error("Error limpiando", e);
+    db.runSync('UPDATE reportesCosecha SET sincronizado = 1 WHERE id = ?', [id]);
+    console.log(`✅ Reporte ${id} marcado como sincronizado.`);
+  } catch (error) {
+    console.log('❌ Error actualizando estatus:', error);
   }
 };
-// ... (código anterior de reportes)
 
-// --- NUEVO: MANEJO DE CATÁLOGOS OFFLINE ---
+// ==========================================
+// 2. MANEJO DE CATÁLOGOS CON ASYNCSTORAGE
+// ==========================================
 const CATALOGO_PARCELAS_KEY = '@cat_parcelas';
 const CATALOGO_MATERIALES_KEY = '@cat_materiales';
 
@@ -62,9 +108,9 @@ export const obtenerCatalogosLocales = async () => {
   }
 };
 
-// ... (código anterior)
-
-// --- NUEVO: CACHÉ DE CALENDARIO ---
+// ==========================================
+// 3. CACHÉ DE CALENDARIO CON ASYNCSTORAGE
+// ==========================================
 const EVENTOS_KEY = '@eventos_calendario';
 
 // Guardar copia de eventos en el celular

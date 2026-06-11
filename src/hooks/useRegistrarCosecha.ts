@@ -35,10 +35,8 @@ export const useRegistrarCosecha = () => {
     setFormData(prev => ({ ...prev, [key]: value }));
   };
 
-  // --- AQUÍ ESTÁ LA MAGIA DE LA CÁMARA ACTUALIZADA ---
   const pickImage = async () => {
     try {
-      // 1. Pedimos permiso al celular primero
       const { status } = await ImagePicker.requestCameraPermissionsAsync();
       
       if (status !== 'granted') {
@@ -46,17 +44,15 @@ export const useRegistrarCosecha = () => {
           "Permiso denegado 🚫", 
           "AgroLink necesita acceso a la cámara para registrar las evidencias de la cosecha."
         );
-        return; // Cancelamos si dice que no
+        return; 
       }
 
-      // 2. Abrimos la cámara con el formato nuevo para quitar el WARN amarillo
       const result = await ImagePicker.launchCameraAsync({
         mediaTypes: ['images'], 
         allowsEditing: true, 
         quality: 0.5,
       });
 
-      // 3. Si tomó la foto, la guardamos
       if (!result.canceled) {
         setImageUri(result.assets[0].uri);
       }
@@ -65,7 +61,6 @@ export const useRegistrarCosecha = () => {
       Alert.alert("Error", "No se pudo iniciar la cámara.");
     }
   };
-  // ----------------------------------------------------
 
   const guardar = async (onSuccess: () => void) => {
     if (!formData.parcela || !formData.material || !tipoBasquete) {
@@ -76,9 +71,18 @@ export const useRegistrarCosecha = () => {
         const net = await NetInfo.fetch();
         const cantidad6oz = parseInt(formData.exportacion6oz) || 0;
         const cantidad12oz = parseInt(formData.exportacion12oz) || 0;
+        
+        // --- AQUÍ ESTÁ LA MAGIA NUEVA ---
+        // 1. Buscamos el nombre exacto dentro del catálogo que ya tienes cargado
+        const parcelaObj = catalogos.parcelas.find((p: any) => p.id === formData.parcela);
+        const materialObj = catalogos.materiales.find((m: any) => m.id === formData.material);
+
+        // 2. Agregamos "parcelaNombre" y "materialNombre" al reporte
         const reporteBase = {
             parcelaId: formData.parcela,
+            parcelaNombre: parcelaObj ? parcelaObj.nombre : "Sin Parcela", // Extrae el texto real
             materialId: formData.material,
+            materialNombre: materialObj ? materialObj.nombre : "No especificado", // Extrae el texto real
             exportacion6oz: tipoBasquete === '6oz' ? cantidad6oz : 0,
             exportacion12oz: tipoBasquete === '12oz' ? cantidad12oz : 0,
             procesoCharola: parseInt(formData.procesoCharola) || 0,
@@ -86,6 +90,8 @@ export const useRegistrarCosecha = () => {
             fechaCreacion: new Date().toISOString(),
             localImageUri: imageUri
         };
+        // --------------------------------
+
         const result = await saveReporte(reporteBase, net.isConnected || false);
         Alert.alert(result.mode === 'offline' ? "Sin Conexión" : "Éxito", result.mode === 'offline' ? "Guardado localmente." : "Guardado en nube.");
         onSuccess(); 
