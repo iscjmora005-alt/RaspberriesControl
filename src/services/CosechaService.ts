@@ -1,6 +1,6 @@
 import { db } from "../firebase/firebaseConfig";
 import { collection, addDoc, getDocs, query, orderBy, doc, updateDoc, increment } from "firebase/firestore";
-// Aquí actualizamos las importaciones para traer las de SQLite
+//  importaciones para traer las de SQLite
 import { guardarReporteLocal, obtenerCatalogosLocales, guardarCatalogosLocal, obtenerReportesPendientes, marcarReporteSincronizado } from "./OfflineService";
 import NetInfo from '@react-native-community/netinfo';
 

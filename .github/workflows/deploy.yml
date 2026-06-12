@@ -1,6 +1,6 @@
 name: Despliegue Automático
 
-# Esto le dice al pipeline que se ejecute SOLO cuando hagas push a la rama main
+
 on:
   push:
     branches:
